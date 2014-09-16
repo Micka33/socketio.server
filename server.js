@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
   socket.on('subscribe', function (rooms)
   {
     _.each(rooms, function(room, index, list) {
-      socket.join(room);
+      socket.join(pubsub_prefix+room);
     });
   });
 });
