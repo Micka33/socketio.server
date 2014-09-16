@@ -44,3 +44,14 @@ io.on('connection', function (socket) {
 
 server.listen(8811, 'localhost');
 log("listenning on localhost:8811");
+
+
+// <script>
+//   var socket = io.connect("localhost:8811");
+//   socket.emit('subscribe', ['achannel', anotherchannel]);
+//   socket.on('connect', function() {
+//      socket.on('message', function (data) {
+//         console.log(data);
+//       });
+//   });
+// </script>
