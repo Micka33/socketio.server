@@ -35,7 +35,7 @@ subscriber_redis.on('ready', function () {log('redis est prêt à recevoir des r
 io.on('connection', function (socket) {
   socket.on('subscribe', function (rooms)
   {
-    _.each(rooms, function(room, index, list) {
+    _.each(rooms, function(room/*, index, list*/) {
       socket.join(pubsub_prefix+room);
     });
   });
