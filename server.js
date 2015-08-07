@@ -15,8 +15,8 @@ var app                   = require('express')(),
 var pubsub_prefix         = 'socketio.',
     redis_conf            = yaml.safeLoad(fs.readFileSync('./redis.yml', 'utf8')),
     env                   = process.env.NODE_ENV            || 'development',
-    port                  = process.env.REDIS_PORT          || redis_conf[env]['port'],
-    host                  = process.env.REDIS_HOST          || redis_conf[env]['host'],
+    port                  = process.env.REDIS_PORT          || redis_conf[env].port,
+    host                  = process.env.REDIS_HOST          || redis_conf[env].host,
     subscriber_redis      = redis.createClient(port, host);
 
 var log = function(msg) {console.log('['+moment().format('h:mm:ss a')+'] '+msg);};
