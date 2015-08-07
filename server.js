@@ -8,8 +8,7 @@ var app                   = require('express')(),
     redis                 = require('redis'),
     moment                = require('moment'),
     yaml                  = require('js-yaml'),
-    fs                    = require('fs'),
-    crypto                = require('crypto');
+    fs                    = require('fs');
 
 //Configuation
 var pubsub_prefix         = 'socketio.',
