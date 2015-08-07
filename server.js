@@ -21,10 +21,10 @@ var pubsub_prefix         = 'socketio.',
 var log = function(msg) {console.log('['+moment().format('h:mm:ss a')+'] '+msg);};
 
 // Not binding the 'error' event will cause node to stop when Redis is unreachable
-subscriber_redis.on('error', function (err) {log('La connection à Redis a échoué: ['+err+']');});
+subscriber_redis.on('error', function(err) {log('La connection à Redis a échoué: ['+err+']');});
 
 
-subscriber_redis.on('ready', function () {log('redis est prêt à recevoir des requêtes.');
+subscriber_redis.on('ready', function() {log('redis est prêt à recevoir des requêtes.');
   subscriber_redis.on('message', function (chann, pat, message) {
     io.to(chann).emit(message);
   });
