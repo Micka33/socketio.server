@@ -13,8 +13,8 @@
     "express": "^4.9.0",
     "js-yaml": "^3.2.2",
     "moment": "^2.8.3",
-    "redis": "^0.12.1",
-    "socket.io": "^1.1.0",
+    "redis": "^2.4.2",
+    "socket.io": "^1.4.5",
     "underscore": "^1.7.0"
   },
   "devDependencies": {

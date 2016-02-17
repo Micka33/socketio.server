@@ -21,14 +21,18 @@ var pubsub_prefix         = 'socketio.',
 var log = function(msg) {console.log('['+moment().format('h:mm:ss a')+'] '+msg);};
 
 // Not binding the 'error' event will cause node to stop when Redis is unreachable
-subscriber_redis.on('error', function(err) {log('La connection à Redis a échoué: ['+err+']');});
+subscriber_redis.on('error', function(err) {log('Connection to Redis failed: ['+err+']');});
 
 
-subscriber_redis.on('ready', function() {log('redis est prêt à recevoir des requêtes.');
-  subscriber_redis.on('message', function (chann, pat, message) {
-    io.to(chann).emit(message);
+var sockets = {};
+
+subscriber_redis.on('ready', function() {log('Subscriber Redis is ready to request.');
+  subscriber_redis.on('pmessage', function (pat, chann, message) {
+    var user_channel = chann.split('/')[0] + '/';
+    log('New message in '+chann+' ('+pat+'): '+message+'.');
+    log('io.to('+user_channel+').emit(message, {chann:'+chann+', message:'+message+'});');
+    io.to(user_channel).emit('message', {chann:chann, message:message});
   });
-  subscriber_redis.psubscribe(pubsub_prefix+'*');
 });
 
 
@@ -36,7 +40,11 @@ io.on('connection', function (socket) {
   socket.on('subscribe', function (rooms)
   {
     _.each(rooms, function(room/*, index, list*/) {
+      log('+1: '+pubsub_prefix+room);
       socket.join(pubsub_prefix+room);
+      subscriber_redis.psubscribe(pubsub_prefix+room+'*');
+
+
     });
   });
 });
